@@ -35,8 +35,8 @@
         </div>
         <nav class="col-sm-2">
             <div class="btn-group btn-group-sm" role="group" aria-label="Button Group">
-                <button type="button" class="btn btn-secondary" onclick="location.href = 'login.php'" >Đăng nhập</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href = 'register-page.php'">Đăng ký</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href = 'logout.php'" >Đăng xuất</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href = 'admin_view_users.php'">Danh sách</button>
             </div>
         </nav>
         <div class="language" style="margin-right: 50px; margin-top: 5px;">
