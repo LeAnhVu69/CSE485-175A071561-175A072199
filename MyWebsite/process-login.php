@@ -12,7 +12,7 @@
 
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-          if (password_verify($password, $row[1])) {
+          if (password_verify($password, $row['password'])) {
             session_start();								
             $_SESSION['user_level'] = (int) $row[3];
             $url = ($_SESSION['user_level'] === 1) ? 'admin-page.php' : 'members-page.php'; 
