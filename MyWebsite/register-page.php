@@ -1,4 +1,4 @@
-<?php include('process-register-page') ?>
+<?php include('process-register-page.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
