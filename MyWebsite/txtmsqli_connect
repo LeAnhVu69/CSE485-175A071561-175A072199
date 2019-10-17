@@ -1,0 +1,11 @@
+<?php
+
+DEFINE ('DB_USER', 'id11185370_localhost');
+DEFINE ('DB_PASSWORD', '123456');
+DEFINE ('DB_HOST', 'localhost');
+DEFINE ('DB_NAME', 'id11185370_moitinh');
+$dbcon = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+// Set the encoding...optional but recommended
+mysqli_set_charset($dbcon, 'utf8'); 
+
+?>
