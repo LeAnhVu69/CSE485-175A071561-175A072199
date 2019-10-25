@@ -41,6 +41,7 @@
             <div class="btn-group btn-group-sm" role="group" aria-label="Button Group">
                 <button type="button" class="btn btn-secondary" onclick="location.href = 'create-admin.php'">Đăng ký thành viên</button>
                 <button type="button" class="btn btn-secondary" onclick="location.href = 'info.php'" >Thông tin</button>
+		    <button type="button" class="btn btn-secondary" onclick="location.href = 'add-news.php'" >Đăng tin</button>
                 <button type="button" class="btn btn-secondary" name='btn_logout' onclick="location.href = 'logout.php'" >Đăng xuất</button>
             </div>
         </nav>
