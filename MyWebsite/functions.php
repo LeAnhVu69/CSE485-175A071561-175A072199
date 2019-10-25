@@ -17,7 +17,7 @@ function register(){
 	$token = bin2hex(random_bytes(10));
 	$password1  =  e($_POST['password1']);
 	$password2  =  e($_POST['password2']);
-    $dupe = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
+        $dupe = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
 	$result = mysqli_query($db, $dupe);
 	$user = mysqli_fetch_assoc($result);
 	if ($user) {
@@ -56,7 +56,6 @@ function register(){
 			mysqli_query($db, $query);
 			$logged_in_user_id = mysqli_insert_id($db);
 			$_SESSION['user'] = getUserById($logged_in_user_id);
-			$password = $password;
 			$take = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
 			$results = mysqli_query($db, $take);
 			if (mysqli_num_rows($results) == 1) { 
@@ -149,7 +148,6 @@ function login(){
 	}
 
 	if (count($errors) == 0) {
-		$password = $password;
 		$query = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
 		$results = mysqli_query($db, $query);
 		if (mysqli_num_rows($results) == 1) { 
@@ -258,4 +256,57 @@ function info(){
 		    array_push($errors, "Đã có lỗi xảy ra, hãy thử lại");
 		}
 	}
+}
+
+if (isset($_POST['add_btn'])) {
+	add();
+}
+
+function add(){
+	global $db, $errors, $title, $content, $thumbnail, $id;
+
+    $id = $_SESSION['user']['id'];
+	$title    =  e($_POST['title']);
+	$content       =  e($_POST['content']);
+    $thumbnail = 	e($_POST['thumbnail']);
+    $dupe = "SELECT * FROM news WHERE title='$title' OR content='$content' OR thumbnail='$thumbnail' LIMIT 1";
+	$result = mysqli_query($db, $dupe);
+	$user = mysqli_fetch_assoc($result);
+	if ($user) {
+		if ($user['title'] === $title) {
+		array_push($errors, "Tiêu đề đã tồn tại");
+		}
+		if ($user['content'] === $content) {
+		array_push($errors, "Nội dung đã tồn tại");
+		}
+		if ($user['thumbnail'] === $thumbnail) {
+		array_push($errors, "Ảnh đã tồn tại");
+		}
+	}
+
+	if (empty($title)) { 
+		array_push($errors, "Phải nhập tiêu đề"); 
+	}
+	if (empty($thumbnail)) { 
+		array_push($errors, "Phải nhập link ảnh"); 
+	}
+	if (empty($content)) { 
+		array_push($errors, "Phải nhập nội dung"); 
+	}
+	if (count($errors) == 0) {
+        $query = "INSERT INTO news (id, thumbnail, title, content) 
+				VALUES('$id', '$thumbnail', '$title', '$content')";
+		mysqli_query($db, $query);
+		$get_news_id = mysqli_insert_id($db);
+		$_SESSION['news'] = getNewsById($get_news_id);
+		header('location: add-thanks.php');
+	}
+}
+
+function getNewsById($N_id){
+	global $db;
+	$query = "SELECT * FROM news WHERE N_id=" . $N_id;
+	$result = mysqli_query($db, $query);
+	$news = mysqli_fetch_assoc($result);
+	return $news;
 }
